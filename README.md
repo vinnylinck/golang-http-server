@@ -1,5 +1,6 @@
+<<<<<<< HEAD
 ## golang-http-server
-An example of a TCP Server written in Golang that "speaks HTTP".
+An example of a HTTP Server written in Golang to test features.
 
 ---
 ### What you are NOT going to find here (yet)
@@ -16,7 +17,7 @@ An example of a TCP Server written in Golang that "speaks HTTP".
 * Simple endpoint just for testing the deploy on heroku (so I can make sure it is running);
 * A full http server to test a few things in Go
 
-When I build this app I was challenging myself to write a TCP server that "speaks" HTTP and
+When I build this app my goal was to write a HTTP server in Go to test a few basic features and
 also, deploy it on Heroku w/o any dependency management. The reason of that is because 
 Heroku usually detects my apps as Go apps based on `/vendor/vendor.json` file, which on this
 case I don't have. So, for this app, it looks for one or more go files inside **subfolders** of 
@@ -29,7 +30,8 @@ in the project folder structure AND the `Procfile` file.
 ---
 ## Accessing the app
 
-1. Open the url: 
-2. `HTTP GET /` endpoint is the "ping" route.  It will always return http 200;
+1. Open the url (localhost:8080)
+2. Type your name and submit the form;
+3. You will see the Form content parsed and rendered in the page;
 
 **IMPORTANT:** The first access to any rout is going to be very slow because the app is probably sleeping on Heroku.
