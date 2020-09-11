@@ -21,8 +21,10 @@ import (
 )
 
 const fallbackport string = "8080"
+const fallbackpath string = "src/httpsrv"
 
 var tpl *template.Template
+var tplpath string = ""
 
 // main type for test handler interface
 type hotdog int
@@ -39,8 +41,10 @@ func (m hotdog) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 }
 
 // On App initialization parses template
+// also resolver template path
 func init() {
-	tpl = template.Must(template.ParseFiles("index.gohtml"))
+	f := resolvepath("index.gohtml")
+	tpl = template.Must(template.ParseFiles(f))
 }
 
 // main function - entry point
@@ -65,4 +69,23 @@ func getenv(key string, fallback string) string {
 		return value
 	}
 	return fallback
+}
+
+// resolve template path
+func resolvepath(tplname string) string {
+	p := getpath()
+	return fmt.Sprintf("%s/%s", p, tplname)
+}
+
+// returns template path
+func getpath() string {
+	isheroku := getenv("ISHEROKU", fallbackpath)
+
+	// this var is set on Heroku to enable logic to load from a different path
+	if isheroku != "true" {
+		return fallbackpath
+	}
+
+	prefix := getenv("HOME", ".")
+	return fmt.Sprintf("%s/%s", prefix, fallbackpath)
 }
